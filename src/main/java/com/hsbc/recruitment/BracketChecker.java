@@ -8,17 +8,20 @@ public class BracketChecker {
     }
     public boolean areBracketsMatchedAndNestedCorrectly () {
 
-        if (bracketString.contains("{}")) {
+        boolean result = true;
+
+        while (bracketString.contains("{}") == true || bracketString.contains("[]") == true || bracketString.contains("()")== true) {
             bracketString.replaceAll("\\{}","");
-
-        } else if (bracketString.contains("[]")) {
             bracketString.replaceAll("\\[]", "");
-
-        } else if (bracketString.contains("()")) {
             bracketString.replaceAll("()","");
         }
 
-        return true;
+        if (bracketString.length() > 0) {
+            result = false;
+        }
+
+
+        return result;
     }
 
 }
