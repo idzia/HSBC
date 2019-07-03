@@ -6,20 +6,20 @@ public class BracketChecker {
     public BracketChecker(String bracketString) {
         this.bracketString = bracketString;
     }
+
     public boolean areBracketsMatchedAndNestedCorrectly () {
 
         boolean result = true;
+        String bracketStr = null;
 
-        while (bracketString.contains("{}") == true || bracketString.contains("[]") == true || bracketString.contains("()")== true) {
-            bracketString.replaceAll("\\{}","");
-            bracketString.replaceAll("\\[]", "");
-            bracketString.replaceAll("()","");
+        if (bracketString.contains("{}") == true || bracketString.contains("[]") == true || bracketString.contains("()")== true) {
+
+            bracketStr = bracketString.replaceAll("{}", "").replaceAll("[]","").replaceAll("()", "");
         }
 
-        if (bracketString.length() > 0) {
+        if (bracketStr!=null && bracketStr.length() > 0) {
             result = false;
         }
-
 
         return result;
     }
