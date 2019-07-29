@@ -1,27 +1,45 @@
 package com.hsbc.recruitment;
 
+import java.util.Stack;
+
 public class BracketChecker {
-    private String bracketString = "";
+    private String bracketString;
 
     public BracketChecker(String bracketString) {
         this.bracketString = bracketString;
     }
 
     public boolean areBracketsMatchedAndNestedCorrectly () {
-
-        boolean result = true;
-        String bracketStr = null;
-
-        if (bracketString.contains("{}") == true || bracketString.contains("[]") == true || bracketString.contains("()")== true) {
-
-            bracketStr = bracketString.replaceAll("{}", "").replaceAll("[]","").replaceAll("()", "");
+        if (bracketString == null
+                || bracketString.length()<2
+                || bracketString.length()%2 != 0
+                || bracketString.charAt(0)==')'
+                || bracketString.charAt(0)=='}'
+                || bracketString.charAt(0)==']') {
+            return false;
         }
 
-        if (bracketStr!=null && bracketStr.length() > 0) {
-            result = false;
-        }
+        Stack<String> stack = new Stack<>();
+        String[] bracketArr = bracketString.split("");
 
-        return result;
+        for (String bracket : bracketArr) {
+            if (bracket.equals("(") || bracket.equals("{") || bracket.equals("[")) {
+                stack.push(bracket);
+            } else if (bracket.equals(")")) {
+                if (!stack.pop().equals("(")) {
+                    return false;
+                }
+            } else if (bracket.equals("]")) {
+                if (!stack.pop().equals("[")) {
+                    return false;
+                }
+            } else if (bracket.equals("}")) {
+                if (!stack.pop().equals("{")) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }
